@@ -1,45 +1,51 @@
+#ifndef LISTA_ARRAY_HPP
+#define LISTA_ARRAY_HPP
+
+#include <iostream>
+using namespace std;
+
 #define MAX 100
 
-struct Lista
-{
+struct Lista {
     int dados[MAX];
     int tamanho;
 };
 
-//inicializar
 void init(Lista &l) {
     l.tamanho = 0;
 }
 
-//inserir
-void enter(Lista &l, int valor) {
+void inserir(Lista &l, int valor) {
     if (l.tamanho < MAX) {
-        l.dados[l.tamanho] = valor;
-        l.tamanho++;
+        l.dados[l.tamanho++] = valor;
     }
 }
 
-//remover i-ésimo elemento
-void remove(Lista &l, int pos) {
-    if (pos >= 0 && pos < l.tamanho) {
-        for (int i = pos; i < l.tamanho - 1; i++) {
-            l.dados[i] = l.dados[i + 1];
+void remover(Lista &l, int i) {
+    if (i >= 0 && i < l.tamanho) {
+        for (int j = i; j < l.tamanho - 1; j++) {
+            l.dados[j] = l.dados[j + 1];
         }
         l.tamanho--;
     }
 }
 
-//verificar se a lista está vazia
-bool isEmpty(const Lista &l) {
+bool vazia(Lista l) {
     return l.tamanho == 0;
 }
 
-//buscar item
-int search(const Lista &l, int valor) {
+bool buscar(Lista l, int valor) {
     for (int i = 0; i < l.tamanho; i++) {
-        if (l.dados[i] == valor) {
-        return i; // Retorna a posição do elemento encontrado
-        }
+        if (l.dados[i] == valor) return true;
     }
-    return -1; // Retorna -1 se o elemento não for encontrado
+    return false;
 }
+
+void mostrar(Lista l) {
+    for (int i = 0; i < l.tamanho; i++) {
+        cout << l.dados[i] << " ";
+    }
+    cout << endl;
+}
+
+#endif
